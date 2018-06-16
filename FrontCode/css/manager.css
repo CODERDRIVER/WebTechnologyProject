@@ -71,3 +71,31 @@
     background-color: white;
     color: black;
 }
+
+
+/* 设置侧边栏 */
+
+.sidebar {
+    padding: 6px;
+    margin-top: 25%;
+    margin-left: 250px;
+    background-color: gray;
+    color: white;
+    width: 50px;
+    height: 150px;
+    text-align: center;
+    border-radius: 10px 0 0 10px;
+    -webkit-border-radius: ;
+    -moz-border-radius: ;
+    -ms-border-radius: ;
+    -o-border-radius: ;
+}
+
+.sidebar p {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.sidebar:hover {
+    cursor: hand;
+}
