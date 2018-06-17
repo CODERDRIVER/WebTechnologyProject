@@ -35,7 +35,7 @@
                     <a href=" ">回收站</a></li>
             </ul>
         </div>
-        <div class="center ">
+        <div class="center">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#">最近使用</a></li>
                 <li role="presentation"><a href="#">我转存的</a></li>
@@ -43,7 +43,7 @@
                 <li role="presentation"><a href="#">共享给我的</a></li>
             </ul>
         </div>
-        <div class="right ">
+        <div class="right">
             <div class="btn-option">
                 <div class="btn-create">
                     <button type="button" class="btn  btn-lg">新&nbsp;&nbsp;建</button>
@@ -58,10 +58,50 @@
                 <p>班</p>
                 <p>级</p>
             </div>
+            <div class="myclass">
+                <div class="slide">
+                    <button class="btn">|&nbsp;|</button>
+                </div>
+                <div class="title">
+                    <p class="text">班&nbsp;级&nbsp;列&nbsp;表</p>
+                </div>
+                <div class="action">
+                    <a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+                </div>
+                <div class="class_list">
+                    <ul>
+                        <li>001&nbsp;web工程</li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.myclass').hide();
+            console.log($('.sidebar'));
 
+            // 点击之后展示
+            $('.sidebar').on('click', function() {
+                $('.myclass').animate({
+                    width: 'toggle'
+                }, 350);
+                $('.sidebar').hide();
+                // $('.myclass').show();
+            });
+            //点击之后隐藏
+            $('.slide').on('click', function() {
+                $('.myclass').animate({
+                    width: 'toggle'
+                }, 350);
+                // $('.myclass').hide();
+                $('.sidebar').show();
+            })
+        });
+    </script>
 
 </body>
 

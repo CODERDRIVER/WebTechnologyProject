@@ -85,10 +85,10 @@
     height: 150px;
     text-align: center;
     border-radius: 10px 0 0 10px;
-    -webkit-border-radius: ;
-    -moz-border-radius: ;
-    -ms-border-radius: ;
-    -o-border-radius: ;
+    -webkit-border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    -ms-border-radius: 10px 0 0 10px;
+    -o-border-radius: 10px 0 0 10px;
 }
 
 .sidebar p {
@@ -98,4 +98,60 @@
 
 .sidebar:hover {
     cursor: hand;
+}
+
+.myclass {
+    /* visibility: hidden; */
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+    border: 1px black solid;
+}
+
+
+/* 设置slide */
+
+.myclass .slide {
+    position: absolute;
+    top: 50%;
+    margin-left: -20px;
+}
+
+.myclass .slide button {
+    width: 15px;
+    padding: 2px;
+    background-color: gray;
+    color: white;
+}
+
+.myclass .title {
+    padding: 8px;
+    height: 40px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.myclass .action {
+    height: 45px;
+    text-align: right;
+}
+
+.myclass .action a {
+    margin-right: 3px;
+}
+
+.myclass .action a span {
+    font-size: 25px;
+}
+
+
+/* 设置班级列表 */
+
+.class_list ul {
+    list-style-type: none;
 }
