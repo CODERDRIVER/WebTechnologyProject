@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Login</title>
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
@@ -12,38 +12,33 @@
 </head>
 
 <body>
-    <div id="left">
-        <ul class="nav nav-pills">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
-        </ul>
-    </div>
-    <div id="right">
-        <ul class="nav nav-pills">
-            <li role="presentation"><a href="/login">Login in</a></li>
-            <li role="presentation"><a href="#">Register</a></li>
-        </ul>
-    </div>
-
-
-    <div class="editor" style="clear: both;">
-        <div class="toolbar"></div>
-        <div></div>
-        <div class="content">
-            <p>欢迎使用</p>
+    <div id="top">
+        <div class="title">
+            <p><a href="./index.html">充&nbsp;电&nbsp;文&nbsp;档</a></p>
         </div>
+        <div class="entry">
+            <a href="">功能</a>
+            <a href="">团队</a>
+            <a href="">更多</a>
+            <a href="">校园合作</a>
+        </div>
+        <button class="btn">教师版</button>
+    </div>
+    <div id="content">
+        <p>作业文档规范和整理，让收发不再困难</p>
+    </div>
+    <div id="enter">
+        <button class="btn">进入文档</button>
     </div>
 
 
-    <!-- <script type="text/javascript">
-        var E = window.wangEditor;
-        var editor = new E('.toolbar', '.content');
-        editor.create();
 
-        //禁用编辑功能
-        editor.$textElem.attr('contenteditable', false);
-    </script> -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+    </script>
 </body>
+
 
 </html>

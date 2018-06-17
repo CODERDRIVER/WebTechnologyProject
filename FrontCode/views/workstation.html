@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Work Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/wangEditor.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/workstation.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="menu" class="toolbar"></div>
+        <br>
+        <div id="content" class="text">
+            <p>请输入内容</p>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor1 = new E('#menu', '#content');
+    editor1.create();
+</script>
+
+</html>
