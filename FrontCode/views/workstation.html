@@ -14,11 +14,28 @@
 </head>
 
 <body>
+    <div class="top">
+        <button type="button" class="btn btn-default" id="back">
+                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="plus">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <span id="title">无标题</span>
+        <span id="text" style="margin-left: 10px;">文档将自动保存</span>
+        <span class="right">
+                <button class="btn">添加协作者</button>
+                <button class="btn">保存为模板</button>
+        </span>
+    </div>
     <div id="container">
         <div id="menu" class="toolbar"></div>
         <br>
         <div id="content" class="text">
-            <p>请输入内容</p>
+            <!-- <p>请输入内容</p> -->
         </div>
     </div>
 
@@ -27,6 +44,13 @@
     var E = window.wangEditor;
     var editor1 = new E('#menu', '#content');
     editor1.create();
+
+    $(document).ready(function() {
+        console.log($('h2').text());
+        $('#back').on('click', function() {
+            window.history.back(-1);
+        });
+    });
 </script>
 
 </html>
