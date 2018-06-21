@@ -1,0 +1,156 @@
+* {
+    padding: 0;
+}
+
+#content {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    height: 600px;
+    background-color: #F0F0F0;
+}
+
+.left {
+    margin-top: 20px;
+    float: left;
+    width: 200px;
+    height: 100%;
+    /* background-color: #00a0dc; */
+}
+
+.center {
+    margin-top: 20px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20%;
+}
+
+.right {
+    margin-top: 60px;
+    float: right;
+    height: 100%;
+    width: 300px;
+    /* background-color: #00a0dc; */
+}
+
+.left .item_list {
+    list-style-type: none;
+    padding: 30px;
+}
+
+.glyphicon {
+    font-size: 31px;
+}
+
+.left .item_list li {
+    line-height: 60px;
+}
+
+.left .item_list li span {
+    margin-right: 10px;
+}
+
+
+/* 设置button之间的间距 */
+
+.btn-option .btn-create {
+    margin-bottom: 40px;
+}
+
+
+/* 设置button的颜色 */
+
+.btn-option .btn-create button {
+    background-color: black;
+    color: white;
+}
+
+.btn-option .btn-import button {
+    background-color: white;
+    color: black;
+}
+
+
+/* 设置侧边栏 */
+
+.sidebar {
+    padding: 6px;
+    margin-top: 25%;
+    margin-left: 250px;
+    background-color: gray;
+    color: white;
+    width: 50px;
+    height: 150px;
+    text-align: center;
+    border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    -ms-border-radius: 10px 0 0 10px;
+    -o-border-radius: 10px 0 0 10px;
+}
+
+.sidebar p {
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.sidebar:hover {
+    cursor: hand;
+}
+
+.myclass {
+    /* visibility: hidden; */
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px;
+    border: 1px black solid;
+}
+
+
+/* 设置slide */
+
+.myclass .slide {
+    position: absolute;
+    top: 50%;
+    margin-left: -20px;
+}
+
+.myclass .slide button {
+    width: 15px;
+    padding: 2px;
+    background-color: gray;
+    color: white;
+}
+
+.myclass .title {
+    padding: 8px;
+    height: 40px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.myclass .action {
+    height: 45px;
+    text-align: right;
+}
+
+.myclass .action a {
+    margin-right: 3px;
+}
+
+.myclass .action a span {
+    font-size: 25px;
+}
+
+
+/* 设置班级列表 */
+
+.class_list ul {
+    list-style-type: none;
+}

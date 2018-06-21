@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>websocket 广播式</title>
+</head>
+<body onload="disconnect()">
+<div>
+    <div>
+        <button id="connect" onclick="connect();">连接</button>
+        <button id="disconnect" onclick="disconnect();" disabled="disabled">断开</button>
+    </div>
+    <div id="conversationDiv">
+        <label>输入你的名字 <input type="text" id="name"/></label>
+        <button id="sendName" onclick="sendName();">发送</button>
+        <p id="response"></p>
+    </div>
+</div>
+
+<!--引入sockjs.min.js stomp.min.js jquery.min.js-->
+<script th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{js/sockjs-0.3.4.min.js}"></script>
+<script th:src="@{js/stomp.js}"></script>
+<script type="text/javascript">
+    var stompClient = null;
+    //连接
+    function connect(){
+        var socket = new SockJS("/endponitWisely"); //连接名称为endpointWisely的节点
+
+        //获取stomp子协议的客户端
+        stompClient = Stomp.over(socket);
+
+        //向服务器发送connect帧
+        stompClient.connect({},function(frame) {
+
+            //连接成功做的事
+            setConnect(true);
+            //连接成功时的回调函数
+//            console.log("connected: "+frame);
+
+            //通过该方法向订阅者发送消息
+            stompClient.subscribe("/topic/getReponse",function(reponse){
+                showResponse(JSON.parse(reponse.body).reponseMessage);
+            })
+        });
+    }
+    //断开
+    function disconnect() {
+        //判断客户端是否为null
+        if (stompClient!=null)
+        {
+            //关闭连接
+            stompClient.disconnect();
+        }
+        setConnect(false);
+    }
+
+    //对连接和关闭状态进行相关的设置
+    function setConnect(status)
+    {
+        //status为true，说明是连接状态
+        document.getElementById("connect").disabled = status;
+        document.getElementById("disconnect").disabled=!status;
+        document.getElementById("conversationDiv").style.visibility=status?'visible':'hidden';
+        $("#response").html();
+    }
+
+    function showResponse(message)
+    {
+        var response = $("#response");
+        response.html(message);
+    }
+
+    function sendName()
+    {
+        var name = $("#name").val();
+
+        stompClient.send("/welcome",{},JSON.stringify({
+            'name':name
+        }))
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+body {
+    background-image: url('../images/banner.jpg');
+}
+
+#top .title {
+    margin: 45px 0 0 90px;
+    color: azure;
+}
+
+#top .title p {
+    font-size: 30px;
+}
+
+#top .entry {
+    margin-left: 40%;
+}
+
+#top .entry a {
+    color: gray;
+    margin-right: 30px;
+    font-size: 20px;
+}
+
+
+/* 设置button */
+
+#top .btn {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    width: 100px;
+    background-color: #6699FF;
+    color: #F8F8F8;
+}
+
+#content {
+    position: absolute;
+    top: 30%;
+    left: 27%;
+}
+
+
+/* 设置中间文本样式 */
+
+#content p {
+    font-family: cursive;
+    text-shadow: 6px 2px 2px #333;
+    color: #E8E8E8;
+    font-size: 35px;
+    letter-spacing: 4px;
+}
+
+#enter button {
+    position: absolute;
+    top: 70%;
+    left: 45%;
+}
+
+#enter button {
+    width: 200px;
+    background-color: transparent;
+    color: #F8F8F8;
+    border-color: rgba(255, 255, 255, 1);
+    border-width: 2px;
+    border-radius: 20px;
+    font-size: 20px;
+    letter-spacing: 4px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    opacity: 1;
+}
+
+
+/* 登录框 */
+
+#login {
+    border: 1px white solid;
+}
+
+#login label,
+#login span,
+#register label,
+#register span {
+    color: white;
+}
+
+#login a {
+    color: gray;
+}
+
+.form {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+}
+
+#login,
+#register {
+    background-color: aquamarine;
+}
+
+
+/* 给body加个模糊 */
+
+.bg-cover {
+    display: none;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .6);
+    width: 100%;
+    height: 100%;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+}
