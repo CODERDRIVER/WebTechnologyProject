@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #D8D8D8;
+}
+
+#container {
+    /* width: 700px; */
+}
+
+#container .toolbar {
+    background: white;
+    border: 1px solid #ccc;
+    /* margin-top: 50px; */
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+#container .text {
+    background-color: white;
+    height: 600px;
+    margin-left: 120px;
+    margin-right: 90px;
+    border: 1 beige solid;
+    left: 10px;
+}
+
+
+/* #container .btn {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    color: white;
+    background-color: #CCCCFF;
+} */
+
+.top {
+    position: relative;
+    /* position: absolute; */
+    height: 60px;
+    /* margin-left: 10px; */
+    background-color: white;
+    padding: 10px;
+}
+
+.top #plus {
+    margin-left: 20px;
+}
+
+.top #title {
+    /* position: absolute; */
+    margin-left: 100px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.top .right {
+    position: absolute;
+    right: 100px;
+}

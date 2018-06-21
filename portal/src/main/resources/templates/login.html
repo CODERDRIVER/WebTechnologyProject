@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{css/bootstrap-theme.css}"/>
+    <script type="text/javascript" th:src="@{js/wangEditor.min.js}"></script>
+    <link rel="stylesheet" th:href="@{css/index.css}">
+</head>
+<body>
+
+   <div class="container">
+        <div class="form row">
+
+            <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
+                <h3 id="login_title">login to your count</h3>
+                <div class="col-sm-9 col-md-9">
+                    <div class="form-group">
+                        <i class="fa fa-user fa-lg"></i>
+                        <input class="form-control required" type="text" placeholder="Username" name="username" autofocus="autofocus" maxlength="20"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+   </div>
+</body>
+</html>
