@@ -21,7 +21,7 @@ public class WebSocketController {
     @SendTo("/topic/getReponse")    //会对所有订阅了topic/getResponse的浏览器发送信息
     public WiselyResponse reponse(WiselyMessage message) throws InterruptedException {
 //        Thread.sleep(3000);
-        return new WiselyResponse("welcome "+message.getName()+"!");
+        return new WiselyResponse(message.getMsg(),message.getName());
     }
 
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>websocket 广播式</title>
+    <title>Workstation</title>
     <script th:src="@{js/jquery-3.2.1.min.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
@@ -18,7 +18,7 @@
     </div>
     <div id="conversationDiv">
         <label>输入你的名字 <input type="text" id="name"/></label>
-        <button id="sendName" onclick="sendName();">发送</button>
+        <input type="submit" onclick="commit()" value="确定">
     </div>
 
     <div class="top">
@@ -42,7 +42,7 @@
         <div id="menu" class="toolbar"></div>
         <br>
         <div id="content" class="text">
-             <p>请输入内容</p>
+             <!--<p id="author">请输入内容</p>-->
         </div>
     </div>
 
@@ -53,6 +53,28 @@
 <script th:src="@{js/sockjs-0.3.4.min.js}"></script>
 <script th:src="@{js/stomp.js}"></script>
 <script type="text/javascript">
+
+    var name = null;
+    var msg = null;
+
+    //确认名称
+    function commit()
+    {
+        name = $('#name').val();
+    }
+
+    //检测回车键
+
+    document.onkeydown = function () {
+        if(event.keyCode==13)
+        {
+//            alert("按下回车键");
+            msg = $('p:last').html();
+            sendName();
+        }
+    };
+
+
     var stompClient = null;
     //连接
     function connect(){
@@ -71,7 +93,7 @@
 
             //通过该方法向订阅者发送消息
             stompClient.subscribe("/topic/getReponse",function(reponse){
-                showResponse(JSON.parse(reponse.body).reponseMessage);
+                showResponse(JSON.parse(reponse.body));
             })
         });
     }
@@ -98,31 +120,47 @@
 
     function showResponse(message)
     {
-//        var response = $("#response");
-//        response.append(message);
-        var content = $('#content');
-        content.append(message+"\n");
+        /**
+         * 判断是否是本人发送的
+         * 如果是本人发送的就不执行该方法
+         * @type {*|jQuery|HTMLElement}
+         */
+        console.log(message);
+        if (message.reponseName!=name)
+        {
+            var content = $('.w-e-text');
+            content.append(message.reponseName+":   "+message.reponseMessage+"<br/>");
+//            $('#author').before("<p style='position: absolute;color: #2aabd2; left:-20px;'>"+name+"</p>")
+        }
     }
 
     function sendName()
     {
-        var name = $("#name").val();
-
         stompClient.send("/welcome",{},JSON.stringify({
-            'name':name
+            'name':name,
+            'msg':msg
         }))
     }
 
+//    富文本
     var E = window.wangEditor;
     var editor1 = new E('#menu', '#content');
     editor1.create();
 
     $(document).ready(function() {
+        //内容修改事件
+        editor1.onchange = function () {
+            var html = editor1.$txt.html();
+            console.log(html);
+        }
         console.log($('h2').text());
         $('#back').on('click', function() {
             window.history.back(-1);
         });
+
     });
+
+
 </script>
 </body>
 </html>
