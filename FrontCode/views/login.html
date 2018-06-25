@@ -7,38 +7,80 @@
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.validate.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/bootstrap-theme.css" />
     <script type="text/javascript" src="../js/wangEditor.min.js"></script>
     <link rel="stylesheet" href="../css/login.css">
 </head>
 
-<body>
+<body onload="checkCookie()">
 
-    <div class="container">
-        <div class="form row">
-            <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
-                <div class="col-sm-9 col-md-9" style="width:350px">
-                    <div class="form-signin-heading">
-                        <div><span class="lc">Web Technology</span></div>
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
+            <div class="col-sm-9 col-md-9" style="width:350px">
+                <div class="form-signin-heading">
+                    <div><span class="lc">Web Technology</span></div>
+                </div>
+                <!-- 标签页，选择登录方式 -->
+                <ul id="login_tab" class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        <a href="#account" data-toggle="tab">账号登录</a>
+                    </li>
+                    <li>
+                        <a href="#SMS" data-toggle="tab">短信登录</a>
+                    </li>
+                </ul>
+
+                <div id="longin_tab_content" class="tab-content">
+                    <!-- 账号登录 -->
+                    <div class="tab-pane fade in active" id="account">
+                        <div class="form-group ">
+                            <label for="username">用户名:</label>
+                            <input class="form-control required input-lg" type="username" id="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
+                        </div>
+                        <div class="form-group ">
+                            <label for="password">密码:</label>
+                            <input class="form-control required input-lg" type="password" id="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
+                        </div>
+                        <button name="signin_btn" type="submit" id="signin_btn" class="auth-action-btn">Sign in</button>
+                        <div class="text-left">
+                            <a href="">Forgot password</a>
+                            <a href="" class="pull-right">Sign Up</a>
+                        </div>
                     </div>
-                    <div class="form-group ">
-                        <label for="username">用户名:</label>
-                        <input class="form-control required input-lg" type="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
-                    </div>
-                    <div class="form-group ">
-                        <label for="password">密码:</label>
-                        <input class="form-control required input-lg" type="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
-                    </div>
-                    <button name="signin_btn" type="submit" class="auth-action-btn">Sign in</button>
-                    <div class="text-left">
-                        <a href="">Forgot password</a>
-                        <a href="" class="pull-right">Sign Up</a>
+
+                    <!-- 短信登录 -->
+                    <div class="tab-pane fade" id="SMS">
+                        <div class="form-group ">
+                            <label for="username">手机号:</label>
+                            <input class="form-control required input-lg" type="username" id="phone_number" name="phone_number" placeholder="手机号" autofocus="autofocus" maxlength="20" />
+                        </div>
+                        <!-- Todo:完善验证码功能 -->
+                        <div class="form-group ">
+                            <label for="password">验证码:</label>
+                            <input class="form-control required input-lg" type="text" id="verification_code" name="verification_code" placeholder="验证码" autofocus="autofocus" maxlength="20" />
+                        </div>
+                        <button name="signin_btn" type="submit" id="signin_btn" class="auth-action-btn">Sign in</button>
                     </div>
                 </div>
-            </form>
-        </div>
+
+            </div>
+        </form>
     </div>
+
+    <form action="CheckLogin" method="post" name="myForm" onsubmit="return login()" target="iframe">
+        <span style="font-size: 14px">用户名：</span>
+        <input type="text" name="uname" />
+        <br>
+        <span style="font-size: 14px">密    码：</span>
+        <input type="password" name="upass" />
+        <br>
+        <span style="display:block; width:230px; text-align:center"><input type="radio" checked="checked" name="identity" value="admin">楼管
+<input type="radio" name="identity" value="stu">学生</span>
+        <span style="display:block; width:230px; text-align:center"><input type="submit" value="登录" class="btn" />
+<input type="reset" value="重置" class="btn" /> </span>
+    </form>
 </body>
 <script type="text/javascript">
     $().ready(function() {
@@ -66,5 +108,30 @@
         })
     });
 </script>
+
+
+
+<!-- signin_btn点击事件 -->
+<script>
+    $('#signin_btn').click(function() {
+
+        var user = $('#username').val();
+        var psd = $('#username').val();
+        //Todo：加入检验是否为正确的用户与密码
+        $.cookie('username', user, {
+            expires: 7
+        });
+    });
+
+    function checkCookie() {
+        var user = $.cookie('username');
+        if (user != "" && user != null) {
+            // Todo: 跳转到主界面
+            alert('welcome ' + user);
+            //window.location.href = 'index.html';
+        }
+    }
+</script>
+
 
 </html>
