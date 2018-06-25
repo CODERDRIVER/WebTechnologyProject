@@ -3,6 +3,7 @@ package com.xuyangl.portal.dao;
 import com.xuyangl.portal.bean.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<User, Integer> {
 
-    @Query("select password from t_user where username = :username")
-    public String findPasswordByUsername(String username);
+    @Query(value = "select password from t_user where username = :username",nativeQuery = true)
+    public String findPasswordByUsername(@Param("username") String username);
 }
