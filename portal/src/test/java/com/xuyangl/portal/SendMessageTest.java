@@ -8,9 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import jdk.nashorn.internal.objects.NativeUint8Array;
 import org.junit.Test;
-import org.springframework.util.SocketUtils;
 
 /**
  * @Description
