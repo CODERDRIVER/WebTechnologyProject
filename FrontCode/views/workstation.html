@@ -28,8 +28,16 @@
         <span id="text" style="margin-left: 10px;">文档将自动保存</span>
         <span class="right">
                 <button class="btn">添加协作者</button>
-                <button class="btn">保存为模板</button>
+                <button class="btn" id="save-tmp">保存为模板</button>
         </span>
+        <!-- 保存成功提示页面 -->
+        <div id="save-success">
+            <p>保存成功，是否上传到班级？</p>
+            <div class="condition">
+                <button class="btn btn-default">是</button>
+                <button class="btn btn-default">否</button>
+            </div>
+        </div>
     </div>
     <div id="container">
         <div id="menu" class="toolbar"></div>
@@ -44,11 +52,17 @@
     var E = window.wangEditor;
     var editor1 = new E('#menu', '#content');
     editor1.create();
-
+    $('#save-success').hide();
     $(document).ready(function() {
-        console.log($('h2').text());
+
+        // 添加回退事件
         $('#back').on('click', function() {
             window.history.back(-1);
+        });
+
+        //保存模板添加事件
+        $('#save-tmp').on('click', function() {
+            $('#save-success').show();
         });
     });
 </script>
