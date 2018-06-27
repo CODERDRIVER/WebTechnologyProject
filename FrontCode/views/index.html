@@ -166,11 +166,35 @@
         $('#login_form').hide();
         $('#register_form').hide();
         $('#choose_form').hide();
+
         $(document).ready(function() {
             // 登录
             $('#enter .btn').on('click', function() {
-                $('.bg-cover').show();
-                $('#login_form').show();
+
+                // console.log(localStorage.getItem('authorization'));
+                if (localStorage.getItem('authorization') == null) {
+                    console.log("没有缓存");
+                    $('#login_form').show();
+                    $('.bg-cover').show();
+                } else {
+                    //判断用户是否已经登录
+                    $.ajax({
+                        url: "http://localhost:8080/manager",
+                        dataType: "text",
+                        type: "get",
+                        beforeSend: function(request) {
+                            request.setRequestHeader('Authorization', localStorage.getItem('authorization'));
+                        },
+                        success: function(data) {
+                            window.location.href = "./" + data;
+                        },
+                        error: function(errs) {
+                            console.log(errs);
+                        }
+                    });
+                }
+
+
             });
             // 关闭登录窗体
             $('#login_close').on('click', function() {
@@ -208,6 +232,8 @@
                     console.log(data);
                     if (data.code == 1) {
                         alert(data.msg);
+                        localStorage.setItem('authorization', data.authorization);
+                        console.log(data.authorization);
                         window.location.href = './manager.html';
                     } else {
                         alert(data.msg);
@@ -221,14 +247,8 @@
         });
 
         function checkCookie() {
-            var user = $.cookie('username');
-            if (user != "" && user != null) {
-                // Todo: 跳转到主界面
-                //alert('welcome ' + user);
-                //window.location.href = 'index.html';
-            }
-        }
 
+        }
 
         function goto_register() {
             $('#login_form').hide();

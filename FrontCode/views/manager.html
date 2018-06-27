@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <div id="userinfo">
+        <button class="btn">注销</button>
+    </div>
     <div id="content">
         <div class="left">
             <ul class="item_list">
@@ -81,6 +84,13 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function() {
+
+            // 注销按钮
+            $("#userinfo").on('click', function() {
+                localStorage.removeItem("authorization");
+                //跳转到首页
+                window.location.href = "./index.html";
+            });
             $('.myclass').hide();
             console.log($('.sidebar'));
 
