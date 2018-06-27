@@ -1,7 +1,5 @@
 package com.xuyangl.portal.bean;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,8 +12,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_user")
-@Data
-@NoArgsConstructor
 public class User {
 
     @Id
