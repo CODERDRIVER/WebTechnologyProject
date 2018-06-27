@@ -40,6 +40,19 @@ body {
 }
 
 
+/* 设置关闭窗口的样式 */
+
+.form-close {
+    position: relative;
+    float: right;
+    background-color: transparent;
+}
+
+#login_close {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
 /* 设置中间文本样式 */
 
 #content p {
@@ -92,7 +105,7 @@ body {
 
 .form {
     position: absolute;
-    top: 30%;
+    top: 26%;
     left: 35%;
 }
 
@@ -107,7 +120,7 @@ body {
 .bg-cover {
     display: none;
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, .6);
