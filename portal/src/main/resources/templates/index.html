@@ -1,47 +1,239 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-    <script th:src="@{js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{js/bootstrap.min.js}"></script>
-    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{css/bootstrap-theme.css}"/>
-    <script type="text/javascript" th:src="@{js/wangEditor.min.js}"></script>
-    <link rel="stylesheet" th:href="@{css/index.css}">
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap-theme.css" />
+    <script type="text/javascript" src="../js/wangEditor.min.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
-<body>
-    <div id="left">
-        <ul class="nav nav-pills">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
-        </ul>
-    </div>
-    <div id="right">
-        <ul class="nav nav-pills">
-            <li role="presentation" ><a href="/login">Login in</a></li>
-            <li role="presentation"><a href="#">Register</a></li>
-        </ul>
-    </div>
 
-
-    <div class="editor"  style="clear: both;" >
-        <div class="toolbar"></div>
-        <div></div>
-        <div class="content">
-            <p>欢迎使用</p>
+<body onload="checkCookie()">
+    <div id="top">
+        <div class="title">
+            <p><a href="./index.html">充&nbsp;电&nbsp;文&nbsp;档</a></p>
         </div>
+        <div class="entry">
+            <a href="">功能</a>
+            <a href="">团队</a>
+            <a href="">更多</a>
+            <a href="">校园合作</a>
+        </div>
+        <button class="btn">教师版</button>
+    </div>
+    <div id="content">
+        <p>作业文档规范和整理，让收发不再困难</p>
+    </div>
+    <div id="enter">
+        <button class="btn">进入文档</button>
+    </div>
+    <!-- bg cover -->
+    <div class="bg-cover"></div>
+    <!-- 登录账号 -->
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form">
+            <div class="col-sm-9 col-md-9" style="width:350px" id="login">
+                <span style="text-align:right">
+                <div class="form-close">
+                    <button type="button" class="btn" id="login_close">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </div>
+            </span>
+            <div class="form-signin-heading">
+                <div><span class="lc">Web Technology</span></div>
+            </div>
+            <!-- 标签页，选择登录方式 -->
+            <ul id="login_tab" class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#l_account" data-toggle="tab">账号登录</a>
+                </li>
+                <li>
+                    <a href="#l_SMS" data-toggle="tab">短信登录</a>
+                </li>
+            </ul>
+
+            <div id="longin_tab_content" class="tab-content">
+                <!-- 账号登录 -->
+                <div class="tab-pane fade in active" id="l_account">
+                    <div class="form-group ">
+                        <label for="username">用户名:</label>
+                        <input class="form-control required input-lg" type="username" id="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
+                    </div>
+                    <div class="form-group ">
+                        <label for="password">密码:</label>
+                        <input class="form-control required input-lg" type="password" id="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
+                    </div>
+                </div>
+
+                <!-- 短信登录 -->
+                <div class="tab-pane fade" id="l_SMS">
+                    <div class="form-group ">
+                        <label for="username">手机号:</label>
+                        <input class="form-control required input-lg" type="username" id="phone_number" name="phone_number" placeholder="手机号" autofocus="autofocus" maxlength="20" />
+                    </div>
+                    <!-- Todo:完善验证码功能 -->
+                    <div class="form-group ">
+                        <label for="verification_code">验证码:</label>
+                        <input class="form-control required input-lg" type="text" id="verification_code" name="verification_code" placeholder="验证码" autofocus="autofocus" maxlength="20" />
+                    </div>
+                </div>
+
+
+            </div>
+            <!--<button name="signin_btn" type="submit" id="signin_btn" class="auth-action-btn">Sign in</button>-->
+                <input type="submit" id="signin_btn" class="auth-action-btn" value="Sign In"/>
+            <div class="text-left">
+                <a href="javascript:;">Forgot password</a>
+                <a href="javascript:;" class="pull-right" onclick="goto_register()">Sign Up</a>
+            </div>
+    </div>
+    </form>
     </div>
 
+    <!-- 注册账号 -->
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
+            <div class="col-sm-9 col-md-9" style="width:350px" id="register">
+                <span style="text-align:right">
+                            <div class="form-close">
+                                <button type="button" class="btn" id="register_close">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </div>
+            </span>
+            <div class="form-signin-heading">
+                <div><span class="lc">Web Technology</span></div>
+            </div>
+
+            <!-- 标签页，选择注册方式 -->
+            <ul id="register_tab" class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#r_account" data-toggle="tab">账号注册</a>
+                </li>
+                <li>
+                    <a href="#r_SMS" data-toggle="tab">短信注册</a>
+                </li>
+            </ul>
+
+            <div id="regsiter_tab_content" class="tab-content">
+                <!-- 账号注册 -->
+                <div class="tab-pane fade in active" id="r_account">
+                    <div class="form-group ">
+                        <label for="username">用户名:</label>
+                        <input class="form-control required input-lg" type="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
+                    </div>
+                </div>
+
+
+                <!-- 短信注册 -->
+                <div class="tab-pane fade" id="r_SMS">
+                    <div class="form-group ">
+                        <label for="username">手机号:</label>
+                        <input class="form-control required input-lg" type="username" placeholder="手机号" name="phone_number" autofocus="autofocus" maxlength="20" />
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="verification_code">验证码:</label>
+                        <input class="form-control required input-lg" type="text" name="verification_code" autofocus="autofocus" maxlength="20" placeholder="验证码" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group ">
+                <label for="password">密码:</label>
+                <input class="form-control required input-lg" type="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
+            </div>
+            <div class="form-group ">
+                <label for="repassword">确认密码:</label>
+                <input class="form-control required input-lg" type="password" name="repassword" autofocus="autofocus" maxlength="20" placeholder="repassword" />
+            </div>
+            <button name="signin_btn" type="submit" class="auth-action-btn">Sign up</button>
+            <div class="text-left">
+                <a href="javascript:;" class="pull-right" onclick="goto_login()">Sign in</a>
+            </div>
+    </div>
+    </form>
+        <input type="submit" id="test" class="auth-action-btn" value="Sign In"/>
+    </div>
 
     <script type="text/javascript">
-        var E = window.wangEditor;
-        var editor = new E('.toolbar','.content');
-        editor.create();
+        $('#login_form').hide();
+        $('#register_form').hide();
+        $('#choose_form').hide();
+        $(document).ready(function() {
+            // 登录
+            $('#enter .btn').on('click', function() {
+                $('.bg-cover').show();
+                $('#login_form').show();
+            });
+            // 关闭登录窗体
+            $('#login_close').on('click', function() {
+                $('#login_form').hide();
+            });
+            // 关闭注册窗体
+            $('#register_close').on('click', function() {
+                $('#register_form').hide();
+            });
 
-        //禁用编辑功能
-        editor.$textElem.attr('contenteditable',false);
+            // Todo:检验输入，目前会点击signin按钮后自动关闭
+        });
+    </script>
+
+    <!-- signin_btn点击事件 -->
+    <script>
+        $('#test').click(function() {
+
+//            var username = $('#username').val();
+//            var psd = $('#username').val();
+            //Todo：加入检验是否为正确的用户与密码
+            // $.cookie('username', user, {
+            //     expires: 7
+            // });
+            $.ajax({
+                url: "http://120.78.148.207:8080/user/login",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "username": "lxy",
+                    "password": "lxy"
+                },
+                success: function(data) {
+                    console.log(data.msg);
+                },
+                error: function() {
+                    console.log("登录失败");
+                    alert("shibai");
+                }
+            });
+        });
+
+        function checkCookie() {
+//            var user = $.cookie('username');
+//            if (user != "" && user != null) {
+//                // Todo: 跳转到主界面
+//                //alert('welcome ' + user);
+//                //window.location.href = 'index.html';
+//            }
+        }
+
+
+        function goto_register() {
+            $('#login_form').hide();
+            $('#register_form').show();
+        }
+
+        function goto_login() {
+            $('#register_form').hide();
+            $('#login_form').show();
+        }
     </script>
 </body>
+
+
 </html>
