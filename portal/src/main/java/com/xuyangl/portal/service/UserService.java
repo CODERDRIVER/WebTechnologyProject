@@ -1,5 +1,7 @@
 package com.xuyangl.portal.service;
 
+import com.xuyangl.portal.bean.User;
+
 /**
  * @Description
  * @Author: liuXuyang
@@ -9,4 +11,6 @@ package com.xuyangl.portal.service;
  */
 public interface UserService {
     public boolean login(String username,String password);
+    public boolean register(User user);
+    public User findUser(User user);    //根据部分信息找到该用户
 }

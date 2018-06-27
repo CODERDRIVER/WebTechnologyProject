@@ -25,6 +25,7 @@ public class CrosFilter implements  Filter{
         if(origin!=null){
 
             response.addHeader("Access-Control-Allow-Origin",origin);
+            response.addHeader("Access-Control-Allow-Headers","Authorization");
         }
         //带有cookie的跨域请求必须使用全url
         response.addHeader("Access-Control-Allow-Methods","*");
