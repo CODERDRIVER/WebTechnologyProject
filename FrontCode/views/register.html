@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.validate.min.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap-theme.css" />
+    <script type="text/javascript" src="../js/wangEditor.min.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body onload>
+
+    <!-- 注册账号 -->
+    <div class="form row">
+        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
+            <div class="col-sm-9 col-md-9" style="width:350px" id="register">
+
+                <div class="form-signin-heading">
+                    <div><span class="lc">账号注册</span></div>
+                </div>
+
+                <div class="form-group ">
+                    <label for="username">用户名:</label>
+                    <input class="form-control required input-lg" type="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
+                </div>
+
+                <div class="form-group ">
+                    <label for="password">密码:</label>
+                    <input class="form-control required input-lg" type="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
+                </div>
+                <div class="form-group ">
+                    <label for="repassword">确认密码:</label>
+                    <input class="form-control required input-lg" type="password" name="repassword" autofocus="autofocus" maxlength="20" placeholder="repassword" />
+                </div>
+
+                <div class="form-group ">
+                    <label for="username">手机号:</label>
+                    <input class="form-control required input-lg" type="username" placeholder="手机号" name="phone_number" autofocus="autofocus" maxlength="20" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="verification_code">验证码:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-lg" name="verification_code" placeholder="验证码">
+                        <span class="input-group-btn">
+                          <button class="btn default-btn input-lg" type="button">发送验证码</button>
+                        </span>
+                    </div>
+                </div>
+
+                <button id="signup_btn" class="auth-action-btn">Sign up</button>
+                <div class="text-left">
+                    <a href="javascript:;" class="pull-right" id="goto_login">Sign in</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <script type="text/javascript">
+        $().ready(function() {
+            $('#login_form').validate({
+                onsubmit: true, //是否在提交时验证
+                onfocusout: false, //是否在获得焦点时验证
+                onkeyup: false, //是否在敲击键盘时验证
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    },
+                    repassword: {
+                        required: true
+                    },
+                    phone_number: {
+                        required: true
+                    },
+                    verification_code: {
+                        required: true
+                    }
+                },
+                messages: {
+                    username: {
+                        required: '请输入用户名'
+                    },
+                    password: {
+                        required: '请输入密码'
+                    },
+                    repassword: {
+                        required: '请再次输入密码'
+                    },
+                    phone_number: {
+                        required: '请输入手机号'
+                    },
+                    verification_code: {
+                        required: '请输入验证码'
+                    }
+                }
+
+            })
+        });
+    </script>
+
+    <!-- signup_btn点击事件 -->
+    <script>
+        $('#signin_btn').click(function() {
+            // Todo：验证用户名，密码，手机号，验证码
+            // Todo: 注册用户信息
+            window.location.href = './index.html';
+        });
+
+        $('#goto_login').on('click', function() {
+            sessionStorage.setItem('from', 'register');
+            window.location.href = './index.html';
+
+        })
+    </script>
+
+</html>
