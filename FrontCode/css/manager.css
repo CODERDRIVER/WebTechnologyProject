@@ -2,6 +2,20 @@
     padding: 0;
 }
 
+
+/* 用户信息 */
+
+#userinfo {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    z-index: 999;
+}
+
+#userinfo button {
+    background-color: aquamarine;
+}
+
 #content {
     position: relative;
     margin-top: 30px;

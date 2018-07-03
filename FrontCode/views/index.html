@@ -78,9 +78,14 @@
                             <input class="form-control required input-lg" type="username" id="phone_number" name="phone_number" placeholder="手机号" autofocus="autofocus" maxlength="20" />
                         </div>
                         <!-- Todo:完善验证码功能 -->
-                        <div class="form-group ">
+                        <div class="form-group">
                             <label for="verification_code">验证码:</label>
-                            <input class="form-control required input-lg" type="text" id="verification_code" name="verification_code" placeholder="验证码" autofocus="autofocus" maxlength="20" />
+                            <div class="input-group">
+                                <input type="text" class="form-control input-lg" name="verification_code" placeholder="验证码">
+                                <span class="input-group-btn">
+                                      <button class="btn default-btn input-lg" type="button">发送验证码</button>
+                                    </span>
+                            </div>
                         </div>
                     </div>
 
@@ -90,93 +95,56 @@
 
                 <div class="text-left">
                     <a href="javascript:;">Forgot password</a>
-                    <a href="javascript:;" class="pull-right" onclick="goto_register()">Sign Up</a>
+                    <a href="javascript:;" class="pull-right" onclick="window.location.href = './register.html';">Sign Up</a>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- 注册账号 -->
-    <div class="form row">
-        <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form">
-            <div class="col-sm-9 col-md-9" style="width:350px" id="register">
-                <span style="text-align:right">
-                            <div class="form-close">
-                                <button type="button" class="btn" id="register_close">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </button>
-            </div>
-            </span>
-            <div class="form-signin-heading">
-                <div><span class="lc">Web Technology</span></div>
-            </div>
-
-            <!-- 标签页，选择注册方式 -->
-            <ul id="register_tab" class="nav nav-tabs nav-justified">
-                <li class="active">
-                    <a href="#r_account" data-toggle="tab">账号注册</a>
-                </li>
-                <li>
-                    <a href="#r_SMS" data-toggle="tab">短信注册</a>
-                </li>
-            </ul>
-
-            <div id="regsiter_tab_content" class="tab-content">
-                <!-- 账号注册 -->
-                <div class="tab-pane fade in active" id="r_account">
-                    <div class="form-group ">
-                        <label for="username">用户名:</label>
-                        <input class="form-control required input-lg" type="username" placeholder="username" name="username" autofocus="autofocus" maxlength="20" />
-                    </div>
-                </div>
-
-
-                <!-- 短信注册 -->
-                <div class="tab-pane fade" id="r_SMS">
-                    <div class="form-group ">
-                        <label for="username">手机号:</label>
-                        <input class="form-control required input-lg" type="username" placeholder="手机号" name="phone_number" autofocus="autofocus" maxlength="20" />
-                    </div>
-
-                    <div class="form-group ">
-                        <label for="verification_code">验证码:</label>
-                        <input class="form-control required input-lg" type="text" name="verification_code" autofocus="autofocus" maxlength="20" placeholder="验证码" />
-                    </div>
-                </div>
-
-            </div>
-            <div class="form-group ">
-                <label for="password">密码:</label>
-                <input class="form-control required input-lg" type="password" name="password" autofocus="autofocus" maxlength="20" placeholder="password" />
-            </div>
-            <div class="form-group ">
-                <label for="repassword">确认密码:</label>
-                <input class="form-control required input-lg" type="password" name="repassword" autofocus="autofocus" maxlength="20" placeholder="repassword" />
-            </div>
-            <button id="signin_btn" class="auth-action-btn">Sign up</button>
-            <div class="text-left">
-                <a href="javascript:;" class="pull-right" onclick="goto_login()">Sign in</a>
-            </div>
-    </div>
-    </form>
-
-    </div>
-
     <script type="text/javascript">
         $('#login_form').hide();
-        $('#register_form').hide();
-        $('#choose_form').hide();
+
         $(document).ready(function() {
+            // // 检验是否有register页面跳转过来，如果是，则打开登录页面
+            var from = sessionStorage.getItem('from');
+            if (from == 'register') {
+                $('#login_form').show();
+                sessionStorage.setItem('from', '');
+            }
+
             // 登录
             $('#enter .btn').on('click', function() {
-                $('.bg-cover').show();
-                $('#login_form').show();
+
+                // console.log(localStorage.getItem('authorization'));
+                if (localStorage.getItem('authorization') == null) {
+                    console.log("没有缓存");
+                    $('#login_form').show();
+                    $('.bg-cover').show();
+                } else {
+                    //判断用户是否已经登录
+                    $.ajax({
+                        url: "http://localhost:8080/manager",
+                        dataType: "text",
+                        type: "get",
+                        beforeSend: function(request) {
+                            request.setRequestHeader('Authorization', localStorage.getItem('authorization'));
+                        },
+                        success: function(data) {
+                            window.location.href = "./" + data;
+                        },
+                        error: function(errs) {
+                            console.log(errs);
+                        }
+                    });
+                }
             });
+
             // 关闭登录窗体
             $('#login_close').on('click', function() {
                 $('#login_form').hide();
                 $('.bg-cover').hide();
             });
+
             // 关闭注册窗体
             $('#register_close').on('click', function() {
                 $('#register_form').hide();
@@ -208,6 +176,8 @@
                     console.log(data);
                     if (data.code == 1) {
                         alert(data.msg);
+                        localStorage.setItem('authorization', data.authorization);
+                        console.log(data.authorization);
                         window.location.href = './manager.html';
                     } else {
                         alert(data.msg);
@@ -221,23 +191,7 @@
         });
 
         function checkCookie() {
-            var user = $.cookie('username');
-            if (user != "" && user != null) {
-                // Todo: 跳转到主界面
-                //alert('welcome ' + user);
-                //window.location.href = 'index.html';
-            }
-        }
 
-
-        function goto_register() {
-            $('#login_form').hide();
-            $('#register_form').show();
-        }
-
-        function goto_login() {
-            $('#register_form').hide();
-            $('#login_form').show();
         }
     </script>
 </body>

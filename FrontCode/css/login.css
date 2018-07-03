@@ -23,3 +23,19 @@
     font-size: 25px;
     font-weight: 300px;
 }
+
+.register_form {
+    position: relative;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+#send_code {
+    margin-left: 40px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    background-color: #3fbbff;
+}
