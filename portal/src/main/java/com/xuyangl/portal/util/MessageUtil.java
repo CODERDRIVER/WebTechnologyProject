@@ -9,6 +9,8 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
+import java.util.Random;
+
 
 /**
  * @Description
@@ -24,7 +26,7 @@ public class MessageUtil {
     private static  final String ACCESSKEYID = "LTAIGO4GXa8Srh0q"; //短信产品API名称（短信产品名固定，无需更改）
     private static  final  String ACCESSKEYSECRET ="k4OffTBQRkFj9TwVAiJiOAYCKvogfZ"; //短信API产品于明加（接口地址固定，无需更改）
 
-    public static boolean sendMessage(String signName,String templateCode,String phoneNumber)
+    public static String sendMessage(String signName,String templateCode,String phoneNumber)
     {
 
         System.setProperty("sun.net.client.defaultConnectTimeout","10000");
@@ -38,14 +40,14 @@ public class MessageUtil {
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", PRODUCT, DOMAIN);
         } catch (ClientException e) {
-            return false;
+            return null;
         }
         IAcsClient acsClient = new DefaultAcsClient(profile);
 
         //组装请求对象
         SendSmsRequest request = new SendSmsRequest();
 
-        //使用post提交
+        //使用get提交
         request.setMethod(MethodType.GET);
         /**
          * 待发送手机号，支持以逗号分隔的形式进行批量调用，批量上限为
@@ -60,12 +62,17 @@ public class MessageUtil {
         //短信模板
         request.setTemplateCode(templateCode);
 
+        //随机生成一个验证码
+        String code = new Random().nextInt(1000000)+"000000";
+        code = code.substring(0,6);
         /**
-         * 可选，模板中的变量替换JSON串，如模板内容中
+         * 可选，模板中的变量替换JSON串，如模板内容中de
          * "亲爱的${name},您的验证码为${code}"时，此处的值为
          *
          */
-        request.setTemplateParam("{\"code\":\"123\"}");
+        String json = "{\"code\":"+code+"}";
+        System.out.println(json);
+        request.setTemplateParam(json);
 
         //可选-上行短信扩展码（扩展码控制在7位以下，无特殊需求用户请忽略此字段）
 //        request.setSmsUpExtendCode("");
@@ -77,12 +84,12 @@ public class MessageUtil {
         try {
             sendSmsResponse = acsClient.getAcsResponse(request);
         } catch (ClientException e) {
-            return false;
+            return null;
         }
         System.out.println(sendSmsResponse.getCode());
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equalsIgnoreCase("OK")) {
-            return true;
+            return code;
         }
-        return true;
+        return code;
     }
 }
