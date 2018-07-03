@@ -49,7 +49,7 @@ public class SendMessageTest {
          * 使用单条调用的方式；
          * 发送国际/港澳台信息时，接受号码个事为00+国家区号+号码
          */
-        request.setPhoneNumbers("18392150502");
+        request.setPhoneNumbers("18829535783");
 
         //短信签名
         request.setSignName("刘旭阳");
