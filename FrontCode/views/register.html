@@ -65,6 +65,8 @@
     </div>
 
     <script type="text/javascript">
+        var code;
+        var wait = 60;
         $().ready(function() {
             //注册验证
             $('#register_form').validate({
@@ -111,25 +113,65 @@
             $('#send_code').click(function() {
                 //获取手机号
                 var telphone = $("input[name='phone_number']").val();
-                var code;
                 $.ajax({
-                    url: "http://localhost:8080/phone/" + telphone,
+                    url: "http://localhost:8080/message/" + telphone,
                     method: "get",
                     success: function(data) {
-
+                        // console.log(data);
+                        if (data.code == 1) {
+                            code = data.validation;
+                        }
                     },
                     error: function() {
-
+                        alert("发送失败");
                     }
                 });
-                //判断后端传过来的code和用户输入的是否相等
-                var input_code = $("input[name='verification_code']").val();
-                if (input_code == code) {
-                    //TODO
-                }
+                //让该button60过后才能点击
+                time(this);
             });
 
+            //提交表单
+            $('#signup_btn').click(function() {
+                //判断后端传过来的code和用户输入的是否相等
+                var input_code = $("input[name='verification_code']").val();
+                if (input_code != code) {
+                    //TODO
+                    alert("验证码错误");
+                }
+                $.ajax({
+                    url: "http://localhost:8080/user/register",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        "username": $("input[name='username']").val(),
+                        "password": $("input[name='password']").val(),
+                        "telephoneNum": $("input[name='phone_number']").val()
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(errs) {
+                        console.log(errs);
+                    }
+                });
+                return false;
+            });
         });
+
+        function time(o) {
+            if (wait == 0) {
+                o.removeAttribute("disabled");
+                o.innerHTML = "获取验证码";
+                wait = 60;
+            } else {
+                o.setAttribute("disabled", true);
+                o.innerHTML = wait + "s重新发送";
+                wait--;
+                setTimeout(function() {
+                    time(o)
+                }, 1000);
+            }
+        }
     </script>
 
     <!-- signup_btn点击事件 -->
