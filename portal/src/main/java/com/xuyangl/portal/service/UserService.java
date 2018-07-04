@@ -13,4 +13,5 @@ public interface UserService {
     public boolean login(String username,String password);
     public boolean register(User user);
     public User findUser(User user);    //根据部分信息找到该用户
+    public boolean isExists(User user); //判断用户是否存在
 }

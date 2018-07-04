@@ -16,6 +16,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<User, Integer> {
 
+    /**
+     *根据用户名查询密码
+     * @param username
+     * @return
+     */
     @Query(value = "select password from t_user where username = :username",nativeQuery = true)
     public String findPasswordByUsername(@Param("username") String username);
+
+    @Query(value = "select * from t_user where username= :username",nativeQuery = true)
+    public User findUserByUsername(@Param("username") String usernme);
 }

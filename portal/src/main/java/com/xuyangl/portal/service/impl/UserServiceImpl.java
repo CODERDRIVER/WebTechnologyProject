@@ -62,4 +62,22 @@ public class UserServiceImpl implements UserService{
         List<User> all = userDao.findAll(example);
         return all.get(0);
     }
+
+    /**
+     * 判断该用户是否存在
+     * @param user
+     * @return
+     */
+    @Override
+    public boolean isExists(User user) {
+        String username = user.getUsername();
+        User userByUsername = userDao.findUserByUsername(username);
+        if(userByUsername!=null)
+        {
+            //说明该用户已经存在
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

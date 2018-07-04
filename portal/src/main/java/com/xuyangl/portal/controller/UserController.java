@@ -64,10 +64,19 @@ public class UserController {
     /**
      * 注册页面
      * 120.78.148.207:8080/user/register
+     * 0: 注册失败
+     * 1: 注册成功
+     * 2: 用户名已经被注册
      */
     @RequestMapping(value="/register",method = RequestMethod.POST)
     public ResponseMessage register(User user)
     {
+//                查找该用户是否存在
+        boolean exists = userService.isExists(user);
+        if (exists)
+        {
+            return new ResponseMessage("该用户名已经被注册",2);
+        }
         //调用service 保存数据库
         boolean register = userService.register(user);
         if (register)
