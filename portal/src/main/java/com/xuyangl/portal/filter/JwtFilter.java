@@ -39,7 +39,6 @@ public class JwtFilter extends GenericFilterBean{
 
         //获得请求头的authorization字段的值
         String authorization = httpServletRequest.getHeader("Authorization");
-        System.out.println(authorization);
         if ("OPTIONS".equals(httpServletRequest.getMethod()))
         {
 
@@ -48,8 +47,8 @@ public class JwtFilter extends GenericFilterBean{
         }else{
             if (authorization==null||!authorization.startsWith("bearer;"))
             {
-                System.out.println("wrong authorization");
-
+//                System.out.println("wrong authorization");
+//                    return ;
             }else{
                 String token = authorization.substring(7);
 
