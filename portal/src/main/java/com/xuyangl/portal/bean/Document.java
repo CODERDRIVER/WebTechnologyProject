@@ -25,6 +25,9 @@ public class Document {
     @Column
     private String owner;  //外键依赖于username
 
+    @Column
+    private String url; //文件的存储路径
+
    // @Column
    @ManyToMany(mappedBy="documentSet")
    private Set<User> userSet;// = new HashSet<User>();
