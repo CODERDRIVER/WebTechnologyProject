@@ -16,7 +16,7 @@ body {
 }
 
 #top .entry a {
-    color: gray;
+    color: black;
     margin-right: 30px;
     font-size: 20px;
 }
@@ -111,7 +111,7 @@ body {
 
 #login,
 #register {
-    background-color: aquamarine;
+    background-image: url("../images/login.gif")
 }
 
 
