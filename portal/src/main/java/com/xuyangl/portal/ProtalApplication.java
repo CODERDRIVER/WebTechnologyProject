@@ -37,7 +37,7 @@ public class ProtalApplication {
 
 		//添加需要拦截的url
 //		List<String> list = new ArrayList<>();
-
+//		list.add("/user/**");
 		return filterRegistrationBean;
 	}
 }

@@ -73,18 +73,18 @@
 
                     <!-- 短信登录 -->
                     <div class="tab-pane fade" id="l_SMS">
-                        <div class="form-group ">
+                        <div class="form-group col-xs-12">
                             <label for="username">手机号:</label>
                             <input class="form-control required input-lg" type="username" id="phone_number" name="phone_number" placeholder="手机号" autofocus="autofocus" maxlength="20" />
                         </div>
                         <!-- Todo:完善验证码功能 -->
-                        <div class="form-group">
+                        <div class="form-group col-xs-12">
                             <label for="verification_code">验证码:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control input-lg" name="verification_code" placeholder="验证码">
-                                <span class="input-group-btn">
-                                      <button class="btn default-btn input-lg" type="button">发送验证码</button>
-                                    </span>
+                                <div class="col-xs-6">
+                                    <input type="text" class="form-control input-lg" name="verification_code" placeholder="验证码">
+                                </div>
+                                <button class="btn default-btn input-lg" id="send_code" type="button">发送验证码</button>
                             </div>
                         </div>
                     </div>
@@ -102,6 +102,9 @@
     </div>
 
     <script type="text/javascript">
+        //全局变量
+        var code; //保存验证码
+        var wait = 60; //button禁用时间
         $('#login_form').hide();
 
         $(document).ready(function() {
@@ -114,6 +117,7 @@
 
             // 登录
             $('#enter .btn').on('click', function() {
+
 
                 // console.log(localStorage.getItem('authorization'));
                 if (localStorage.getItem('authorization') == null) {
@@ -152,41 +156,91 @@
 
             // Todo:检验输入，目前会点击signin按钮后自动关闭
         });
+
+        /*
+            验证码发送功能
+        */
+        $('#send_code').click(function() {
+            //获取手机号
+            var telphone = $("input[name='phone_number']").val();
+            $.ajax({
+                url: "http://localhost:8080/message/" + telphone,
+                method: "get",
+                success: function(data) {
+                    // console.log(data);
+                    if (data.code == 1) {
+                        code = data.validation;
+                    }
+                },
+                error: function() {
+                    alert("发送失败");
+                }
+            });
+            //让该button60过后才能点击
+            time(this);
+        });
+        //用来禁用button 60s
+        function time(o) {
+            if (wait == 0) {
+                o.removeAttribute("disabled");
+                o.innerHTML = "获取验证码";
+                wait = 60;
+            } else {
+                o.setAttribute("disabled", true);
+                o.innerHTML = wait + "s重新发送";
+                wait--;
+                setTimeout(function() {
+                    time(o)
+                }, 1000);
+            }
+        };
     </script>
 
     <!-- signin_btn点击事件 -->
     <script>
         $('#signin_btn').click(function() {
 
-            var username = $('#username').val();
-            var psd = $('#password').val();
-            //Todo：加入检验是否为正确的用户与密码
-            // $.cookie('username', user, {
-            //     expires: 7
-            // });
-            $.ajax({
-                url: "http://localhost:8080/user/login",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "username": username,
-                    "password": psd
-                },
-                success: function(data) {
-                    console.log(data);
-                    if (data.code == 1) {
-                        alert(data.msg);
-                        localStorage.setItem('authorization', data.authorization);
-                        console.log(data.authorization);
-                        window.location.href = './manager.html';
-                    } else {
-                        alert(data.msg);
-                    }
-                },
-                error: function(errs) {
-                    alert('出错了');
+            //判断用户的登录方式
+            var type = $('#login_tab').find('.active').find('a').html();
+            if (type == '短信登录') {
+                //判断用户输入code 和后端返回的code是否一样
+                var real_code = $('input[name="verification_code"]').val();
+                if (real_code == code) {
+                    window.location.href = './manager.html';
+                } else {
+                    alert("验证码不正确");
                 }
-            });
+            } else {
+                var username = $('#username').val();
+                var psd = $('#password').val();
+                //Todo：加入检验是否为正确的用户与密码
+                // $.cookie('username', user, {
+                //     expires: 7
+                // });
+                $.ajax({
+                    url: "http://localhost:8080/user/login",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        "username": username,
+                        "password": psd
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (data.code == 1) {
+                            alert(data.msg);
+                            localStorage.setItem('authorization', data.authorization);
+                            console.log(data.authorization);
+                            window.location.href = './manager.html';
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(errs) {
+                        alert('出错了');
+                    }
+                });
+            }
             return false;
         });
 
