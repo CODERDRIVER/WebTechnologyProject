@@ -2,6 +2,8 @@ package com.xuyangl.portal.bean;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Description
@@ -29,6 +31,38 @@ public class User {
 
     @Column(nullable = false)
     private  String password;
+
+    //@Column
+    @JoinTable(name="user_document",
+            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="document_id", referencedColumnName="id")})
+    @ManyToMany
+    private Set<Document> documentSet;//  =  new HashSet<Document>();
+
+   // @Column
+   @JoinTable(name="user_grade",
+           joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+           inverseJoinColumns={@JoinColumn(name="grade_id", referencedColumnName="id")})
+   @ManyToMany
+    private Set<Grade> gradeSet; // =  new HashSet<Grade>();
+
+
+    public Set<Grade> getGradeSet() {
+        return gradeSet;
+    }
+
+    public void setGradeSet(Set<Grade> gradeSet) {
+        this.gradeSet = gradeSet;
+    }
+
+    public void setDocumentSet(Set<Document> documentSet) {
+        this.documentSet = documentSet;
+    }
+
+
+    public Set<Document> getDocumentSet() {
+        return documentSet;
+    }
 
     public Long getId() {
         return id;
