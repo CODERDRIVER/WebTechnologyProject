@@ -62,6 +62,31 @@
 
         //保存模板添加事件
         $('#save-tmp').on('click', function() {
+
+            //获得editor1的内容
+            var content = editor1.txt.html();
+            //获得名称
+            var fileName = $('#title').html();
+            //保存到数据库
+            $.ajax({
+                url: "http://localhost:8080/template",
+                method: "post",
+                dataType: "json",
+                data: {
+                    "owner": "lxy",
+                    "fileName": fileName + ".doc",
+                    "content": content
+                },
+                success: function(data) {
+                    // console.log(data);
+                    if (data.code == 1) {
+                        alert(data.msg);
+                    }
+                },
+                error: function() {
+                    alert("发送失败");
+                }
+            });
             $('#save-success').show();
         });
     });
