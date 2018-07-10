@@ -15,6 +15,7 @@
 
 <body>
     <div id="userinfo">
+        hello,<span id="name"></span>
         <button class="btn">注销</button>
     </div>
     <div id="content">
@@ -70,12 +71,12 @@
                 </div>
                 <div class="action">
                     <a href="#"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-                    <a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                    <a href="#" id="add_class"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                     <a href="#"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
                 </div>
                 <div class="class_list">
                     <ul>
-                        <li>001&nbsp;web工程</li>
+                        <!-- <li>001&nbsp;web工程</li> -->
                     </ul>
                 </div>
             </div>
@@ -83,8 +84,25 @@
         </div>
     </div>
     <script type="text/javascript">
+        var baseurl = "http://localhost:8080/";
         $(document).ready(function() {
-
+            //像后端发送请求，查询该用户的所加入的班级
+            $.ajax({
+                url: baseurl + "/grades/" + localStorage.getItem("username"),
+                method: "get",
+                type: "json",
+                success: function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var tep = "0000" + (i + 1);
+                        var number = tep.substr(tep.length - 3, 3);
+                        $(".class_list").find('ul').append("<li>" + number + "&nbsp;" + data[i].classname + "</li>")
+                    }
+                },
+                error: function() {
+                    alert("网络出错了");
+                }
+            });
+            $('#name').html(localStorage.getItem('username'));
             // 注销按钮
             $("#userinfo").on('click', function() {
                 localStorage.removeItem("authorization");
@@ -96,10 +114,13 @@
 
             // 点击之后展示
             $('.sidebar').on('click', function() {
+
+
                 $('.myclass').animate({
                     width: 'toggle'
                 }, 350);
                 $('.sidebar').hide();
+                $('#userinfo').hide();
                 // $('.myclass').show();
             });
             //点击之后隐藏
@@ -109,10 +130,27 @@
                 }, 350);
                 // $('.myclass').hide();
                 $('.sidebar').show();
+                $('#userinfo').show();
             });
 
             $(".btn-create").on('click', function() {
                 window.location.href = './workstation.html';
+            });
+
+
+            // 增加一个班级
+            $('#add_class').click(function() {
+                $.ajax({
+                    url: baseurl + "/grade",
+                    method: "post",
+                    type: "json",
+                    success: function(data) {
+
+                    },
+                    error: function() {
+
+                    }
+                });
             });
         });
     </script>

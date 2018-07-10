@@ -148,6 +148,9 @@
                         "telephoneNum": $("input[name='phone_number']").val()
                     },
                     success: function(data) {
+                        alert("注册成功,自动转到登录页面");
+                        sessionStorage.setItem('from', 'register');
+                        window.location.href = './index.html';
                         console.log(data);
                     },
                     error: function(errs) {
