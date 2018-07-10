@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * @Description 文件上传工具类
- * @Author: LeiYuQing
+ * @Author: Leiyuqing
  * @studentNo 15130110106
  * @Emailaddress rimoly.7@gmail.com
  * @Date: 2018/7/4 10:13
