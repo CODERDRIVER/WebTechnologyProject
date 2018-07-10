@@ -7,13 +7,12 @@ import java.io.InputStream;
 
 /**
  * @Description 文件上传工具类
- * @Author: liuXuyang
- * @studentNo 15130110024
- * @Emailaddress 1187697635@qq.com
- * @Date: 2018/7/6 10:13
+ * @Author: Leiyuqing
+ * @studentNo 15130110106
+ * @Emailaddress rimoly.7@gmail.com
+ * @Date: 2018/7/4 10:13
  */
 public class FTPUtil {
-
 
     /**
      *
@@ -53,3 +52,4 @@ public class FTPUtil {
         return flag;
     }
 }
+
