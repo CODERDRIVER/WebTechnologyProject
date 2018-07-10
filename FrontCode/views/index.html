@@ -231,6 +231,7 @@
                             alert(data.msg);
                             localStorage.setItem('authorization', data.authorization);
                             console.log(data.authorization);
+                            localStorage.setItem('username', username);
                             window.location.href = './manager.html';
                         } else {
                             alert(data.msg);
