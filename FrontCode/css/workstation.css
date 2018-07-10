@@ -52,14 +52,27 @@ body {
 
 .top #title {
     /* position: absolute; */
-    margin-left: 100px;
+    margin-left: 80px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.top #title input {
+    border-radius: 5px;
+    width: 100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 .top .right {
     position: absolute;
     right: 100px;
+}
+
+#class_list {
+    margin-top: 5px;
 }
 
 #save-success {
