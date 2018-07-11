@@ -49,8 +49,7 @@ public class FtpServiceImpl implements FtpService{
         }
 
         //获得文件的原有路径
-        String originPath = multipartFile.getOriginalFilename();
-
+        String originPath = multipartFile.getName();
 
         //获得文件后缀
         String ext = originPath.split("\\.")[1];
@@ -78,5 +77,13 @@ public class FtpServiceImpl implements FtpService{
             return new FtpRespnseMessage(0,null,"上传失败");
 
         }
+    }
+
+    @Override
+    public FtpRespnseMessage uploadTemplate(String fileName, String content) {
+        MultipartFile multipartFile = FTPUtil.changeFileToMul(fileName, content);
+        FtpRespnseMessage ftpRespnseMessage = uploadFile(multipartFile);
+
+        return ftpRespnseMessage;
     }
 }

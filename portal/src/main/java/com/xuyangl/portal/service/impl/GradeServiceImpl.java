@@ -10,9 +10,9 @@ import java.util.List;
 
 /**
  * @Description
- * @Author: LeiYuQing
- * @studentNo 15130110106
- * @Emailaddress rimoly.7@gmail.com
+ * @Author: liuXuyang
+ * @studentNo 15130110024
+ * @Emailaddress 1187697635@qq.com
  * @Date: 2018/7/8 19:59
  */
 @Service
@@ -38,6 +38,7 @@ public class GradeServiceImpl implements GradeService{
     @Override
     public boolean saveGrade(Grade grade) {
         gradeDao.save(grade);
+
         return true;
     }
 }

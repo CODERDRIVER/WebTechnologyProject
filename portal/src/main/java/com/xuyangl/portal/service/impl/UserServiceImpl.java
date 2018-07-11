@@ -80,4 +80,12 @@ public class UserServiceImpl implements UserService{
             return false;
         }
     }
+
+    @Override
+    public boolean saveUser(User user) {
+        userDao.save(user);
+        return true;
+    }
+
+
 }
