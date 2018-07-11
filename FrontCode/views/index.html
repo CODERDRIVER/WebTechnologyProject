@@ -106,6 +106,7 @@
         var code; //保存验证码
         var wait = 60; //button禁用时间
         $('#login_form').hide();
+        var baseurl = "http://localhost:8080/";
 
         $(document).ready(function() {
             // // 检验是否有register页面跳转过来，如果是，则打开登录页面
@@ -127,7 +128,7 @@
                 } else {
                     //判断用户是否已经登录
                     $.ajax({
-                        url: "http://localhost:8080/manager",
+                        url: baseurl + "manager",
                         dataType: "text",
                         type: "get",
                         beforeSend: function(request) {
@@ -164,7 +165,7 @@
             //获取手机号
             var telphone = $("input[name='phone_number']").val();
             $.ajax({
-                url: "http://localhost:8080/message/" + telphone,
+                url: baseurl + "message/" + telphone,
                 method: "get",
                 success: function(data) {
                     // console.log(data);
@@ -218,7 +219,7 @@
                 //     expires: 7
                 // });
                 $.ajax({
-                    url: "http://localhost:8080/user/login",
+                    url: baseurl + "user/login",
                     type: "post",
                     dataType: "json",
                     data: {

@@ -73,7 +73,7 @@
             var fileName = $('#title').find('input').val();
             //保存到数据库
             $.ajax({
-                url: "http://localhost:8080/template",
+                url: baseurl + "template",
                 method: "post",
                 dataType: "json",
                 data: {
