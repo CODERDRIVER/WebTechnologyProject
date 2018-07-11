@@ -1,6 +1,9 @@
 package com.xuyangl.portal.bean;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,27 +26,29 @@ public class User {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column
     private String telephoneNum;
 
-    @Column(nullable = false)
+    @Column
     private boolean isTeacher;
 
     @Column(nullable = false)
     private  String password;
 
     //@Column
-    @JoinTable(name="user_document",
+    @JsonIgnore
+    @JoinTable(name="t_user_document",
             joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
             inverseJoinColumns={@JoinColumn(name="document_id", referencedColumnName="id")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Document> documentSet;//  =  new HashSet<Document>();
 
    // @Column
-   @JoinTable(name="user_grade",
+    @JsonIgnore
+   @JoinTable(name="t_user_grade",
            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
            inverseJoinColumns={@JoinColumn(name="grade_id", referencedColumnName="id")})
-   @ManyToMany
+   @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Grade> gradeSet; // =  new HashSet<Grade>();
 
 

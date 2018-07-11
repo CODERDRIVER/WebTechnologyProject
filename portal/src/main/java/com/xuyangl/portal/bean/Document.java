@@ -1,5 +1,7 @@
 package com.xuyangl.portal.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +15,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "document")
+@Table(name = "t_document")
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +31,7 @@ public class Document {
     private String url; //文件的存储路径
 
    // @Column
+    @JsonIgnore
    @ManyToMany(mappedBy="documentSet")
    private Set<User> userSet;// = new HashSet<User>();
 
@@ -73,4 +76,12 @@ public class Document {
 //    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 //    private Timestamp date;
 
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
