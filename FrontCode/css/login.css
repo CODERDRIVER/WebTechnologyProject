@@ -2,11 +2,6 @@
     padding: 0px;
 }
 
-
-/* body {
-    background-image: url("../images/register.jpg")
-} */
-
 .auth-action-btn {
     border-radius: 5px;
     width: 100%;
@@ -20,6 +15,7 @@
 
 .lc {
     font-family: TypoRound;
+    color: white;
 }
 
 .form-signin-heading div {

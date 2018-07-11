@@ -24,7 +24,9 @@
         <button type="button" class="btn btn-default" id="plus">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
-        <span id="title">无标题</span>
+        <span id="title">
+            <input type="text" placeholder="title">
+        </span>
         <span id="text" style="margin-left: 10px;">文档将自动保存</span>
         <span class="right">
                 <button class="btn">添加协作者</button>
@@ -34,9 +36,10 @@
         <div id="save-success">
             <p>保存成功，是否上传到班级？</p>
             <div class="condition">
-                <button class="btn btn-default">是</button>
-                <button class="btn btn-default">否</button>
+                <button class="btn btn-default" id="yes">是</button>
+                <button class="btn btn-default" id="no">否</button>
             </div>
+            <div id="class_list"></div>
         </div>
     </div>
     <div id="container">
@@ -51,6 +54,7 @@
 <script type="text/javascript">
     var E = window.wangEditor;
     var editor1 = new E('#menu', '#content');
+    var baseurl = "http://localhost:8080/";
     editor1.create();
     $('#save-success').hide();
     $(document).ready(function() {
@@ -66,14 +70,14 @@
             //获得editor1的内容
             var content = editor1.txt.html();
             //获得名称
-            var fileName = $('#title').html();
+            var fileName = $('#title').find('input').val();
             //保存到数据库
             $.ajax({
-                url: "http://localhost:8080/template",
+                url: baseurl + "template",
                 method: "post",
                 dataType: "json",
                 data: {
-                    "owner": "lxy",
+                    "owner": localStorage.getItem('username'),
                     "fileName": fileName + ".doc",
                     "content": content
                 },
@@ -81,14 +85,39 @@
                     // console.log(data);
                     if (data.code == 1) {
                         alert(data.msg);
+                        $('#save-success').show();
                     }
                 },
                 error: function() {
                     alert("发送失败");
                 }
             });
-            $('#save-success').show();
+
         });
+
+        $("#yes").click(function() {
+            $("#class_list").append("<select id='test'><option value='0'>--please select --</option>");
+            $("#class_list").append("</select>");
+            $.ajax({
+                url: baseurl + "grades",
+                method: "get",
+                type: "json",
+                success: function(data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        $("#test").append("<option value=" + data[i].id + ">" + data[i].classname + "</option>")
+                    }
+                },
+                error: function() {
+                    console.log("error");
+                }
+            });
+        });
+
+
+        $("#no").click(function() {
+            $('#save-success').hide();
+        })
     });
 </script>
 

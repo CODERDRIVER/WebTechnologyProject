@@ -1,5 +1,7 @@
 package com.xuyangl.portal.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +15,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "grade")
+@Table(name = "t_grade")
 public class Grade {
 
     @Id
@@ -27,6 +29,7 @@ public class Grade {
     private String builder;  //受外键username约束.
 
     //@Column
+    @JsonIgnore
     @ManyToMany(mappedBy="gradeSet")
     private Set<User> userSet;// = new HashSet<User>();
 

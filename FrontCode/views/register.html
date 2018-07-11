@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/bootstrap-theme.css" />
     <script type="text/javascript" src="../js/wangEditor.min.js"></script>
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/register.css">
 </head>
 
 <body onload>
@@ -67,6 +68,7 @@
     <script type="text/javascript">
         var code;
         var wait = 60;
+        var baseurl = "http://localhost:8080/";
         $().ready(function() {
             //注册验证
             $('#register_form').validate({
@@ -114,7 +116,7 @@
                 //获取手机号
                 var telphone = $("input[name='phone_number']").val();
                 $.ajax({
-                    url: "http://localhost:8080/message/" + telphone,
+                    url: baseurl + "message/" + telphone,
                     method: "get",
                     success: function(data) {
                         // console.log(data);
@@ -139,7 +141,7 @@
                     alert("验证码错误");
                 }
                 $.ajax({
-                    url: "http://localhost:8080/user/register",
+                    url: baseurl + "user/register",
                     method: "post",
                     dataType: "json",
                     data: {

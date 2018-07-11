@@ -140,17 +140,24 @@
 
             // 增加一个班级
             $('#add_class').click(function() {
+                var classname = prompt("请输入班级名称");
+                var builder = localStorage.getItem("username");
                 $.ajax({
-                    url: baseurl + "/grade",
+                    url: baseurl + "/grade/" + builder,
                     method: "post",
                     type: "json",
+                    data: {
+                        "builder": builder,
+                        "classname": classname
+                    },
                     success: function(data) {
-
+                        alert(data.msg);
                     },
                     error: function() {
 
                     }
                 });
+                return false;
             });
         });
     </script>
